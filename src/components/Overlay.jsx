@@ -29,7 +29,7 @@ export const Overlay = () => {
         } transition-opacity duration-1000`}
       >
         <h1
-          className={`text-2xl font-extrabold text-center font-mono pointer-events-auto ${
+          className={`text-2xl font-extrabold text-center bg-white bg-opacity-20 font-mono pointer-events-auto ${
             visible ? "" : "opacity-0"
           } transition-opacity duration-1000`}
         
@@ -74,10 +74,10 @@ export const Overlay = () => {
           </svg>
         </div>
         <div className="bg-gradient-to-t from-white/90 pt-20 pb-10 p-4 flex items-center flex-col text-center">
-          <h1 className="text-5xl font-extrabold">
+          <h1 className="text-5xl font-extrabold bg-white rounded-md p-2 bg-opacity-20 font-mono">
             {scenes[displaySlide].name}
           </h1>
-          <p className="text-opacity-60 ">
+          <p className="text-opacity-60 bg-white bg-opacity-20 p-2 rounded-md mb-2 mt-2 ">
             {scenes[displaySlide].description}
           </p>
           <p className="font-bold">
@@ -88,7 +88,7 @@ export const Overlay = () => {
             <div className="flex flex-col items-center">
               <div className="flex gap-2 items-center">
            
-                <p>
+                <p className="text-opacity-60 bg-white bg-opacity-1.2 p-2 rounded-md mb-2 mt-2 ">
                   {scenes[displaySlide].price.toLocaleString("en-US", {
                     style: "currency",
                     currency: "USD",
@@ -97,11 +97,11 @@ export const Overlay = () => {
                
               </div>
             
-              <p className="text-sm opacity-80">Web development, data structures and algorithms</p>
+              <p className="text-sm opacity-80 bg-blue-200 p-2 rounded-md">Web development, data structures and algorithms</p>
             </div>
             <div className="flex flex-col items-center">
            
-              <p className="text-sm opacity-80">nico bazzoni</p>
+              <p className="text-sm opacity-80 bg-slate-200 p-2 rounded-sm">nico bazzoni</p>
             </div>
           </div>
         </div>

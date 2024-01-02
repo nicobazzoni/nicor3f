@@ -26,9 +26,11 @@ export const Scene = ({ mainColor, path, ...props }) => {
  
 console.log(animations, 'animations')
   const [currentAnimation, setCurrentAnimation] = useState(null);
-  const animationSequence = ['CharacterArmature|Wave', 'CharacterArmature|HitReact','CharacterArmature|Idle','CharacterArmature|Yes' ]; // Example sequence
+ // Example sequence
    const zombieSequence = ['Armature|Idle', 'Armature|Walk','Armature|Attack','Armature|Death' ]; // Example sequence
   // Function to play a specific animation
+  
+  
   const animationTimeoutRef = useRef();
   
 
@@ -52,8 +54,15 @@ console.log(animations, 'animations')
 
  
   const resetCharacter = () => {
-    playAnimation('CharacterArmature|Idle'); // Play 'Stand-Up' animation
-    setTimeout(() => playAnimation('CharacterArmature|Wave'), 3000); // Then play 'Wave' after a delay
+    playAnimation("CharacterArmature|Yes"); // Play 'Idle' animation
+  };
+
+  const handleTap = () => {
+    playAnimation("CharacterArmature|Wave", () => {
+      setTimeout(() => {
+        resetCharacter();
+      }, 1000);
+    });
   };
   
   useEffect(() => {
@@ -76,28 +85,20 @@ console.log(animations, 'animations')
   useEffect(() => {
     // Check if the animation exists before starting it
     if (mixer && animations) {
-      let take01AnimationClip = animations.find((clip) => clip.name === 'Armature|Idle');
+      let take01AnimationClip = animations.find((clip) => clip.name === 'Armature|Walk');
      
       if (take01AnimationClip) {
         const action = mixer.clipAction(take01AnimationClip, group.current);
         action.reset().play();
         action.setLoop(THREE.LoopRepeat, Infinity); // Set to loop indefinitely
         action.clampWhenFinished = true;
-        setCurrentAnimation('Armature|Idle');
+        setCurrentAnimation('Armature|Walk');
       }
     }
   }, [mixer, animations]);
   
   
-  const handleTap = () => {
-    playAnimation("Armature|Hit_reaction", () => {
-      playAnimation("Armature|Attack", () => {
-        setTimeout(() => {
-          playAnimation("Armature|Attack");
-        }, 1000);
-      });
-    });
-  };
+
 
   //zombie attack every few seconds 
   useEffect(() => {
@@ -185,7 +186,7 @@ if (currentAnimation === 'Take 01', 'Take 02') {
     <>
       <color attach="background" args={["#ffffff"]} />
       <group ref={group} onClick={handleAnimationChange}    {...props} dispose={null}>
-        <PerspectiveCamera makeDefault position={[3, 3, 8]} near={0.5} />
+        <PerspectiveCamera makeDefault position={[3, 2, 8]} near={0.5} />
         <OrbitControls
           
           enablePan={false}
